@@ -14,35 +14,21 @@ export default function App() {
       style={{
         fontFamily: "Inter, sans-serif",
         backgroundColor: "#F5F4F0",
-        overflowX: "hidden",
+        // Removido o overflowX daqui para permitir que o sticky funcione globalmente
       }}
     >
-      {/* 01 — Navigation */}
       <NavBar />
-
-      {/* 02 — Hero */}
       <HeroSection />
-
-      {/* 03 — Marquee strip */}
       <MarqueeStrip />
-
-      {/* 04 — Sobre / Manifesto */}
       <AboutSection />
 
-      {/* 05 — Serviços */}
+      {/* Seção com efeito de trava (Sticky) */}
       <ServicesSection />
 
-      {/* 06 — Projetos selecionados */}
       <ProjectsSection />
-
-      {/* 07 — Como trabalhamos */}
       <ProcessSection />
-
-      {/* 08 — CTA Final / Contato */}
       <CTASection />
-
-      {/* 09 — Footer */}
       <Footer />
     </div>
   );
-}
+} 

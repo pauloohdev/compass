@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 
 const services = [
   {
@@ -23,38 +23,35 @@ const services = [
 ];
 
 export function ServicesSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const targetRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.1 } },
-  };
+  // Controle de Scroll: Começa quando o topo da seção bate no topo da tela
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"]
+  });
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 32 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-  };
+  // Transformação: Move de 0% até -65% lateralmente conforme o scroll vertical
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-27%"]);
 
   return (
     <section
       id="servicos"
-      ref={ref}
-      style={{
-        backgroundColor: "#F5F4F0",
-        padding: "clamp(80px, 10vw, 160px) 0",
-      }}
+      ref={targetRef}
+      className="relative h-[300vh] bg-[#F5F4F0]" // Altura que define o tempo da trava
     >
-      <div className="max-w-[1440px] mx-auto px-10 md:px-16 lg:px-20">
-        {/* Header */}
+      {/* A Janela Sticky: Fica fixa enquanto o usuário rola os 300vh */}
+      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+
+        {/* O Trilho Horizontal */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-20"
+          style={{ x }}
+          className="flex items-center gap-12 pl-10 md:pl-15 w-max"
         >
-          <motion.div variants={itemVariants}>
+
+          {/* Bloco de Texto (Entra no trilho lateral) */}
+          <div className="min-w-[320px] max-w-[420px] shrink-0 mr-10">
             <div className="flex items-center gap-3 mb-4">
               <div style={{ width: "24px", height: "1px", backgroundColor: "#BA7517" }} />
               <span
@@ -78,165 +75,67 @@ export function ServicesSection() {
                 letterSpacing: "-0.03em",
                 color: "#111110",
                 lineHeight: "1.05",
-                margin: 0,
               }}
             >
-              O que
-              <br />
-              entregamos.
+              O que<br />entregamos.
             </h2>
-          </motion.div>
-          <motion.p
-            variants={itemVariants}
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: "15px",
-              fontWeight: 300,
-              color: "#111110",
-              opacity: 0.55,
-              lineHeight: "1.65",
-              maxWidth: "320px",
-              margin: 0,
-            }}
-          >
-            Cada serviço é projetado para gerar resultado mensurável, não apenas para ser bonito na tela.
-          </motion.p>
-        </motion.div>
+            <p className="mt-6 text-[15px] font-light text-[#111110] opacity-55 max-w-[320px]">
+              Cada serviço é projetado para gerar resultado mensurável, não apenas para ser bonito na tela.
+            </p>
+          </div>
 
-        {/* Service cards */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-3 gap-px"
-          style={{ border: "1px solid rgba(17,17,16,0.1)" }}
-        >
-          {services.map((service, i) => (
-            <motion.div
-              key={i}
-              variants={itemVariants}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}
-              style={{
-                padding: "clamp(32px, 3vw, 52px)",
-                borderRight: i < 2 ? "1px solid rgba(17,17,16,0.1)" : "none",
-                cursor: "default",
-                transition: "background-color 0.3s ease",
-                backgroundColor: hovered === i ? "#111110" : "transparent",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {/* Subtle accent corner on hover */}
-              <motion.div
-                animate={{ opacity: hovered === i ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "3px",
-                  height: "100%",
-                  backgroundColor: "#BA7517",
-                }}
-              />
-
-              {/* Number */}
+          {/* Cards de Serviço */}
+          <div className="flex gap-px border border-[#1111101a]">
+            {services.map((service, i) => (
               <div
+                key={i}
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+                className="w-[80vw] sm:w-[450px] shrink-0 relative overflow-hidden transition-colors duration-300 px-10 py-16 md:px-14 md:py-20"
                 style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 500,
-                  letterSpacing: "0.18em",
-                  color: hovered === i ? "rgba(245,244,240,0.3)" : "rgba(17,17,16,0.25)",
-                  textTransform: "uppercase",
-                  marginBottom: "clamp(28px, 3vw, 48px)",
-                  transition: "color 0.3s ease",
+                  borderRight: i < services.length - 1 ? "1px solid rgba(17,17,16,0.1)" : "none",
+                  backgroundColor: hovered === i ? "#111110" : "transparent",
                 }}
               >
-                {service.num}
+                {/* Accent Line */}
+                <motion.div
+                  animate={{ opacity: hovered === i ? 1 : 0 }}
+                  className="absolute top-0 left-0 w-[3px] h-full bg-[#BA7517]"
+                />
+
+                <span className={`block mb-10 text-[11px] font-medium tracking-widest uppercase transition-colors ${hovered === i ? "text-[#f5f4f04d]" : "text-[#11111040]"}`}>
+                  {service.num}
+                </span>
+
+                <h3 className={`text-2xl font-semibold tracking-tight mb-4 transition-colors ${hovered === i ? "text-[#F5F4F0]" : "text-[#111110]"}`}>
+                  {service.title}
+                </h3>
+
+                <p className={`text-[15px] font-light leading-relaxed mb-10 transition-colors ${hovered === i ? "text-[#f5f4f099]" : "text-[#1111108c]"}`}>
+                  {service.desc}
+                </p>
+
+                <div className="flex gap-2 flex-wrap mb-10">
+                  {service.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className={`text-[10px] font-medium px-3 py-1 rounded-full border transition-all ${hovered === i
+                        ? "border-[#f5f4f033] text-[#f5f4f080]"
+                        : "border-[#11111026] text-[#11111066]"
+                        }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className={`flex items-center gap-2 text-sm transition-colors ${hovered === i ? "text-[#BA7517]" : "text-[#11111066]"}`}>
+                  <span>Saiba mais</span>
+                  <motion.span animate={{ x: hovered === i ? 5 : 0 }}>→</motion.span>
+                </div>
               </div>
-
-              {/* Title */}
-              <h3
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize: "clamp(18px, 1.6vw, 22px)",
-                  fontWeight: 600,
-                  color: hovered === i ? "#F5F4F0" : "#111110",
-                  lineHeight: "1.3",
-                  letterSpacing: "-0.02em",
-                  margin: 0,
-                  marginBottom: "16px",
-                  transition: "color 0.3s ease",
-                }}
-              >
-                {service.title}
-              </h3>
-
-              {/* Description */}
-              <p
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize: "14px",
-                  fontWeight: 300,
-                  color: hovered === i ? "rgba(245,244,240,0.6)" : "rgba(17,17,16,0.55)",
-                  lineHeight: "1.7",
-                  margin: 0,
-                  marginBottom: "32px",
-                  transition: "color 0.3s ease",
-                }}
-              >
-                {service.desc}
-              </p>
-
-              {/* Tags */}
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "32px" }}>
-                {service.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    style={{
-                      fontFamily: "Inter, sans-serif",
-                      fontSize: "10px",
-                      fontWeight: 500,
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                      color: hovered === i ? "rgba(245,244,240,0.5)" : "rgba(17,17,16,0.4)",
-                      border: `1px solid ${hovered === i ? "rgba(245,244,240,0.2)" : "rgba(17,17,16,0.15)"}`,
-                      borderRadius: "100px",
-                      padding: "4px 10px",
-                      transition: "all 0.3s ease",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Arrow link */}
-              <div
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 400,
-                  color: hovered === i ? "#BA7517" : "rgba(17,17,16,0.4)",
-                  letterSpacing: "0.05em",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  transition: "color 0.3s ease",
-                }}
-              >
-                <span>Saiba mais</span>
-                <motion.span
-                  animate={{ x: hovered === i ? 4 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  →
-                </motion.span>
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
