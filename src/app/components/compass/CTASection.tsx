@@ -2,6 +2,21 @@ import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { CompassRose } from "./CompassIcon";
 
+/** Máscara colapsada na diagonal (↘); abre para o retângulo inteiro. */
+const CLIP_HIDDEN =
+  "polygon(100% 0, 100% 0, 0 100%, 0 100%)" as const;
+const CLIP_FULL =
+  "polygon(0 0, 100% 0, 100% 100%, 0 100%)" as const;
+
+const easeReveal = [0.22, 1, 0.36, 1] as const;
+
+/** Pausa após a seção entrar em vista, para o utilizador perceber o início da revelação. */
+const REVEAL_DELAY_S = 0.32;
+const CLIP_DURATION_S = 1.28;
+const CONTENT_DURATION_S = 1.48;
+/** Conteúdo acompanha a máscara com um ligeiro offset (paralaxe). */
+const CONTENT_DELAY_OFFSET_S = 0.06;
+
 export function CTASection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
@@ -41,10 +56,31 @@ export function CTASection() {
         style={{ textAlign: "center" }}
       >
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ clipPath: CLIP_HIDDEN }}
+          animate={isInView ? { clipPath: CLIP_FULL } : {}}
+          transition={{
+            duration: CLIP_DURATION_S,
+            ease: easeReveal,
+            delay: REVEAL_DELAY_S,
+          }}
+          style={{
+            willChange: "clip-path",
+          }}
         >
+          <motion.div
+            initial={{ scale: 1.06, x: 22, y: 14 }}
+            animate={
+              isInView
+                ? { scale: 1, x: 0, y: 0 }
+                : {}
+            }
+            transition={{
+              duration: CONTENT_DURATION_S,
+              ease: easeReveal,
+              delay: REVEAL_DELAY_S + CONTENT_DELAY_OFFSET_S,
+            }}
+            style={{ transformOrigin: "50% 50%" }}
+          >
           <div
             className="flex items-center justify-center gap-3 mb-8"
           >
@@ -139,10 +175,7 @@ export function CTASection() {
           </div>
 
           {/* Email */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
+          <p
             style={{
               fontFamily: "Inter, sans-serif",
               fontSize: "12px",
@@ -153,7 +186,8 @@ export function CTASection() {
             }}
           >
             ola@compassstudio.com.br
-          </motion.p>
+          </p>
+          </motion.div>
         </motion.div>
       </div>
     </section>

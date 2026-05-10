@@ -183,3 +183,9 @@
     line-height: 1.5;
   }
 }
+
+/* Cursor da bússola: esconde o cursor do sistema enquanto o componente está montado */
+html.compass-cursor-active,
+html.compass-cursor-active * {
+  cursor: none !important;
+}

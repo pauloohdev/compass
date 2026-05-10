@@ -1,7 +1,8 @@
+import { CompassNeedleCursor } from "./components/compass/CompassNeedleCursor";
 import { NavBar } from "./components/compass/NavBar";
 import { HeroSection } from "./components/compass/HeroSection";
-import { MarqueeStrip } from "./components/compass/MarqueeStrip";
 import { AboutSection } from "./components/compass/AboutSection";
+import { MarqueeStrip } from "./components/compass/MarqueeStrip";
 import { ServicesSection } from "./components/compass/ServicesSection";
 import { ProjectsSection } from "./components/compass/ProjectsSection";
 import { ProcessSection } from "./components/compass/ProcessSection";
@@ -17,6 +18,7 @@ export default function App() {
         // Removido o overflowX daqui para permitir que o sticky funcione globalmente
       }}
     >
+      <CompassNeedleCursor />
       <NavBar />
       <HeroSection />
       <MarqueeStrip />

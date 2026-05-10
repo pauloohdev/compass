@@ -40,7 +40,8 @@ export function HeroSection() {
       id="hero"
       style={{
         backgroundColor: "#F5F4F0",
-        minHeight: "100vh",
+        /* svh alinha melhor com a área visível real (barras móveis / UI do browser) */
+        minHeight: "100svh",
         position: "relative",
         overflow: "hidden",
         display: "flex",
@@ -79,7 +80,7 @@ export function HeroSection() {
         }}
       />
 
-      <div className="max-w-[1440px] mx-auto px-10 md:px-16 lg:px-20 w-full pt-32 pb-24 md:pt-40 md:pb-32 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-10 md:px-16 lg:px-20 w-full pt-[calc(72px+clamp(1rem,3vh,2rem))] pb-14 md:pb-20 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -87,7 +88,7 @@ export function HeroSection() {
           style={{ maxWidth: "900px" }}
         >
           {/* Eyebrow label */}
-          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-10 md:mb-14">
+          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6 md:mb-8">
             <div style={{ width: "32px", height: "1px", backgroundColor: "#BA7517" }} />
             <span
               style={{
@@ -112,14 +113,14 @@ export function HeroSection() {
               margin: 0,
               letterSpacing: "-0.03em",
             }}
-            className="text-[clamp(56px,10vw,148px)]"
+            className="text-[clamp(38px,6vw,88px)]"
           >
             Construímos
             <br />
             <span
               style={{
                 display: "block",
-                paddingLeft: "clamp(32px, 5vw, 80px)",
+                paddingLeft: "clamp(18px, 3.5vw, 52px)",
               }}
             >
               o digital que
@@ -140,12 +141,12 @@ export function HeroSection() {
             variants={itemVariants}
             style={{
               fontFamily: "Inter, sans-serif",
-              fontSize: "clamp(16px, 1.4vw, 20px)",
+              fontSize: "clamp(15px, 1.2vw, 18px)",
               fontWeight: 300,
               color: "#111110",
               opacity: 0.6,
               lineHeight: "1.65",
-              marginTop: "clamp(32px, 4vw, 52px)",
+              marginTop: "clamp(20px, 2.8vw, 36px)",
               maxWidth: "480px",
             }}
           >
@@ -155,7 +156,7 @@ export function HeroSection() {
           {/* CTAs */}
           <motion.div
             variants={itemVariants}
-            style={{ marginTop: "clamp(36px, 4vw, 52px)", display: "flex", gap: "16px", flexWrap: "wrap" }}
+            style={{ marginTop: "clamp(22px, 3vw, 36px)", display: "flex", gap: "16px", flexWrap: "wrap" }}
           >
             <a
               href="#projetos"
@@ -203,7 +204,7 @@ export function HeroSection() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="absolute bottom-12 left-10 md:left-16 lg:left-20 hidden lg:flex items-center gap-8"
+          className="absolute bottom-8 left-10 md:left-16 lg:left-20 hidden lg:flex items-center gap-8"
         >
           <motion.div variants={itemVariants} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <span
