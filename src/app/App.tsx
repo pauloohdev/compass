@@ -5,7 +5,7 @@ import { HeroSection } from "./components/compass/HeroSection";
 import { AboutSection } from "./components/compass/AboutSection";
 import { MarqueeStrip } from "./components/compass/MarqueeStrip";
 import { ServicesSection } from "./components/compass/ServicesSection";
-import { LandingPageSection } from "./components/compass/landingpage";
+import { LandingPageSection } from "./components/compass/Landingpage";
 import { ProjectsSection } from "./components/compass/ProjectsSection";
 import { ProcessSection } from "./components/compass/ProcessSection";
 import { CTASection } from "./components/compass/CTASection";
