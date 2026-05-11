@@ -141,15 +141,15 @@ export function CTASection() {
                 fontSize: "15px",
                 fontWeight: 500,
                 color: "#111110",
-                backgroundColor: "#F5F4F0",
+                backgroundColor: "#BA7517",
                 borderRadius: "100px",
                 padding: "16px 40px",
                 display: "inline-block",
                 letterSpacing: "0.01em",
-                border: "1px solid #F5F4F0",
+                border: "1px solid #BA7517",
                 transition: "all 0.25s ease",
               }}
-              className="hover:bg-[#BA7517] hover:border-[#BA7517] hover:text-white transition-all duration-250"
+              className="hover:bg-[#111110] hover:border-[#111110] hover:text-[#BA7517] transition-all duration-250 animate-pulse-scale"
             >
               Iniciar projeto →
             </a>

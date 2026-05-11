@@ -14,9 +14,9 @@ export function NavBar() {
   }, [scrollY]);
 
   const navLinks = [
-    { label: "Trabalhos", href: "#projetos" },
-    { label: "Serviços", href: "#servicos" },
-    { label: "Contato", href: "#contato" },
+    { label: "Trabalhos", href: "/#projetos" },
+    { label: "Serviços", href: "/#servicos" },
+    { label: "Contato", href: "/#contato" },
   ];
 
   return (
@@ -32,7 +32,7 @@ export function NavBar() {
         <div className="max-w-[1440px] mx-auto px-10 md:px-16 lg:px-20">
           <div className="flex items-center justify-between h-[72px]">
             {/* Wordmark */}
-            <a href="#" className="flex items-center gap-2.5 group">
+            <a href="/" className="flex items-center gap-2.5 group">
               <CompassIcon size={22} animated />
               <span
                 style={{
@@ -67,20 +67,21 @@ export function NavBar() {
                 </a>
               ))}
               <a
-                href="#contato"
+                href="/#contato"
                 style={{
                   fontFamily: "Inter, sans-serif",
                   fontSize: "13px",
                   fontWeight: 500,
                   letterSpacing: "0.04em",
                   color: "#111110",
-                  border: "1px solid rgba(17,17,16,0.4)",
+                  backgroundColor: "#BA7517",
+                  border: "1px solid #BA7517",
                   borderRadius: "100px",
                   padding: "8px 20px",
                   transition: "all 0.25s ease",
                   display: "inline-block",
                 }}
-                className="hover:bg-[#111110] hover:text-[#F5F4F0] hover:border-[#111110] transition-all duration-250"
+                className="hover:bg-[#111110] hover:text-[#BA7517] hover:border-[#111110] transition-all duration-250"
               >
                 Iniciar projeto →
               </a>
@@ -137,12 +138,15 @@ export function NavBar() {
                 fontSize: "14px",
                 fontWeight: 500,
                 color: "#111110",
-                border: "1px solid rgba(17,17,16,0.4)",
+                backgroundColor: "#BA7517",
+                border: "1px solid #BA7517",
                 borderRadius: "100px",
                 padding: "10px 24px",
                 display: "inline-block",
                 width: "fit-content",
+                transition: "all 0.25s ease",
               }}
+              className="hover:bg-[#111110] hover:text-[#BA7517] hover:border-[#111110] transition-all duration-250"
             >
               Iniciar projeto →
             </a>

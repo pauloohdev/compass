@@ -189,3 +189,16 @@ html.compass-cursor-active,
 html.compass-cursor-active * {
   cursor: none !important;
 }
+
+@keyframes pulse-scale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 2s infinite;
+}

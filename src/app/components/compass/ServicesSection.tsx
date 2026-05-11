@@ -129,10 +129,13 @@ export function ServicesSection() {
                   ))}
                 </div>
 
-                <div className={`flex items-center gap-2 text-sm transition-colors ${hovered === i ? "text-[#BA7517]" : "text-[#11111066]"}`}>
+                <a
+                  href={i === 0 ? "/landingpage" : "#landingpage"}
+                  className={`flex items-center gap-2 text-sm font-medium transition-all ${hovered === i ? "text-[#BA7517]" : "text-[#11111066]"}`}
+                >
                   <span>Saiba mais</span>
                   <motion.span animate={{ x: hovered === i ? 5 : 0 }}>→</motion.span>
-                </div>
+                </a>
               </div>
             ))}
           </div>
