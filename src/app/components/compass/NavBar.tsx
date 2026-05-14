@@ -14,6 +14,8 @@ export function NavBar() {
   }, [scrollY]);
 
   const navLinks = [
+    { label: "Landing Page", href: "/landingpage" },
+    { label: "Lojas Virtuais", href: "/virtual-store" },
     { label: "Trabalhos", href: "/#projetos" },
     { label: "Serviços", href: "/#servicos" },
     { label: "Contato", href: "/#contato" },
