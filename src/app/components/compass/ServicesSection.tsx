@@ -130,7 +130,7 @@ export function ServicesSection() {
                 </div>
 
                 <a
-                  href={i === 0 ? "/landingpage" : i === 1 ? "/virtual-store" : "#landingpage"}
+                  href={i === 0 ? "/landingpage" : i === 1 ? "/virtual-store" : "/institutional-site"}
                   className={`flex items-center gap-2 text-sm font-medium transition-all ${hovered === i ? "text-[#BA7517]" : "text-[#11111066]"}`}
                 >
                   <span>Saiba mais</span>

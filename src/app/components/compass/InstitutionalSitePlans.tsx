@@ -1,43 +1,58 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 
-export function VirtualStorePlans() {
+export function InstitutionalSitePlans() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   const plans = [
     {
       num: "01",
-      title: "Profissional",
+      title: "Essencial",
       price: "R$ 1.497",
       delivery: "Entrega em 15-20 dias úteis",
       items: [
-        "Plataforma Nuvemshop ou WooCommerce",
-        "Até 30 produtos cadastrados",
-        "Design semi-customizado",
-        "Frete automático configurado",
-        "Pixel do Meta configurado",
-        "Checkout otimizado para conversão",
-        "Botão de WhatsApp",
+        "Até 10 páginas",
+        "Design responsivo",
+        "Formulário de contato",
+        "Integração com Google Maps",
         "Versão responsiva para mobile",
+        "SSL certificado incluído",
       ],
     },
     {
       num: "02",
-      title: "Elite",
+      title: "Profissional",
       price: "R$ 2.497",
       delivery: "Entrega em 20-25 dias úteis",
       items: [
-        "Tudo do Profissional",
-        "Até 50 produtos cadastrados",
-        "Bot de recuperação de carrinho abandonado",
-        "Notificações automáticas de pedido",
+        "Tudo do Essencial",
+        "Até 20 páginas",
+        "Design totalmente customizado",
+        "Blog/Notícias integrado",
+        "SEO on-page otimizado",
         "Google Analytics configurado",
+        "Sistema de agendamento",
+      ],
+    },
+    {
+      num: "03",
+      title: "Elite",
+      price: "R$ 3.997",
+      delivery: "Entrega em 25-30 dias úteis",
+      items: [
+        "Tudo do Profissional",
+        "Páginas ilimitadas",
+        "Sistema de gestão de conteúdo (CMS)",
+        "Integração com redes sociais",
+        "Automação de email marketing",
+        "Sistema de autenticação de usuários",
+        "Suporte e manutenção 3 meses",
       ],
     },
   ];
 
   return (
-    <section id="virtual-store" className="bg-white py-24 lg:py-28">
+    <section id="institutional-site" className="bg-white py-24 lg:py-28">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div className="max-w-3xl">
           <div className="flex items-center gap-3 mb-4">
@@ -52,7 +67,7 @@ export function VirtualStorePlans() {
                 textTransform: "uppercase",
               }}
             >
-              Loja Virtual
+              Site Institucional
             </span>
           </div>
           <h2
@@ -65,11 +80,14 @@ export function VirtualStorePlans() {
               lineHeight: "1.05",
             }}
           >
-            E-commerce completo para vender produtos online com pagamento integrado.
+            Sites que representam sua marca com autoridade e confiança.
           </h2>
+          <p className="mt-6 text-[15px] font-light text-[#111110] opacity-55 max-w-[320px]">
+            Comunicação clara, design profissional e estrutura otimizada para crescimento. A sua marca merece um site que inspira confiança.
+          </p>
         </div>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-2 md:gap-8 max-w-4xl mx-auto">
+        <div className="mt-16 grid gap-8 md:grid-cols-3 md:gap-8">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.title}
@@ -80,16 +98,16 @@ export function VirtualStorePlans() {
                 scale: hovered === i ? 1.02 : 1,
               }}
               className={`relative overflow-hidden transition-all duration-300 px-8 py-12 md:px-10 md:py-14 rounded-xl border-2 ${
-                i === 0
+                i === 1
                   ? 'border-[#BA7517] bg-gradient-to-br from-[#BA7517]/5 to-transparent shadow-2xl shadow-[#BA7517]/20'
                   : 'border-[#11111015] bg-white hover:border-[#11111030]'
               }`}
               style={{
-                backgroundColor: hovered === i && i !== 0 ? "#f9f8f5" : undefined,
+                backgroundColor: hovered === i && i !== 1 ? "#f9f8f5" : undefined,
               }}
             >
               {/* Badge - Most Popular */}
-              {i === 0 && (
+              {i === 1 && (
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -103,7 +121,7 @@ export function VirtualStorePlans() {
               )}
 
               {/* Corner Accent */}
-              {i === 0 && (
+              {i === 1 && (
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#BA7517]/10 to-transparent rounded-bl-full" />
               )}
 
@@ -111,19 +129,19 @@ export function VirtualStorePlans() {
                 {/* Price Section */}
                 <div className="mb-8">
                   <h3 className={`text-2xl font-bold mb-2 ${
-                    i === 0 ? 'text-[#BA7517]' : 'text-[#111110]'
+                    i === 1 ? 'text-[#BA7517]' : 'text-[#111110]'
                   }`}>
                     {plan.title}
                   </h3>
                   <div className="flex items-baseline gap-2 mb-3">
                     <span className={`text-4xl font-black ${
-                      i === 0 ? 'text-[#BA7517]' : 'text-[#111110]'
+                      i === 1 ? 'text-[#BA7517]' : 'text-[#111110]'
                     }`}>
                       {plan.price}
                     </span>
                   </div>
                   <p className={`text-sm font-medium ${
-                    i === 0 ? 'text-[#BA7517]/80' : 'text-[#11111080]'
+                    i === 1 ? 'text-[#BA7517]/80' : 'text-[#11111080]'
                   }`}>
                     ⏱️ {plan.delivery}
                   </p>
@@ -131,7 +149,7 @@ export function VirtualStorePlans() {
 
                 {/* Divider */}
                 <div className={`h-px mb-8 ${
-                  i === 0 ? 'bg-[#BA7517]/30' : 'bg-[#11111010]'
+                  i === 1 ? 'bg-[#BA7517]/30' : 'bg-[#11111010]'
                 }`} />
 
                 {/* Features List */}
@@ -141,11 +159,11 @@ export function VirtualStorePlans() {
                       <motion.span
                         animate={{ scale: hovered === i ? 1.2 : 1 }}
                         className={`mt-1.5 inline-flex h-2 w-2 rounded-full shrink-0 ${
-                          i === 0 ? 'bg-[#BA7517]' : 'bg-[#BA7517]/60'
+                          i === 1 ? 'bg-[#BA7517]' : 'bg-[#BA7517]/60'
                         }`}
                       />
                       <span className={`text-[14px] leading-relaxed ${
-                        i === 0 ? 'text-[#111110] font-medium' : 'text-[#111110cc]'
+                        i === 1 ? 'text-[#111110] font-medium' : 'text-[#111110cc]'
                       }`}>
                         {item}
                       </span>
@@ -156,11 +174,11 @@ export function VirtualStorePlans() {
                 {/* CTA Button */}
                 <motion.button
                   animate={{
-                    backgroundColor: hovered === i ? "#BA7517" : (i === 0 ? "#BA7517" : "#f5f4f0"),
-                    color: hovered === i ? "#ffffff" : (i === 0 ? "#ffffff" : "#BA7517"),
+                    backgroundColor: hovered === i ? "#BA7517" : (i === 1 ? "#BA7517" : "#f5f4f0"),
+                    color: hovered === i ? "#ffffff" : (i === 1 ? "#ffffff" : "#BA7517"),
                   }}
                   className={`w-full py-3.5 px-6 rounded-lg font-bold text-sm tracking-wide transition-all duration-300 border-2 flex items-center justify-center gap-2 ${
-                    i === 0
+                    i === 1
                       ? 'border-[#BA7517] bg-[#BA7517] text-white hover:shadow-lg hover:shadow-[#BA7517]/40'
                       : 'border-[#BA7517] hover:bg-[#BA7517] hover:text-white hover:shadow-lg'
                   }`}
@@ -170,9 +188,9 @@ export function VirtualStorePlans() {
                 </motion.button>
 
                 {/* Comparison Note */}
-                {i !== 0 && (
+                {i !== 1 && (
                   <p className="text-center text-xs text-[#11111066] mt-4">
-                    Máximo crescimento garantido
+                    {i === 0 ? "Excelente para iniciar" : "Máximo controle e expansão"}
                   </p>
                 )}
               </div>
